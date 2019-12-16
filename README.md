@@ -1,4 +1,4 @@
-# Salesforce App
+# auraでwrapしたLightning Web Componentをアクションから呼び出すサンプル
 
 ## はじめに
 ClassicからLightning Experienceに切り替えるとき、JavaScriptボタンの代替機能を提供しなければならない場合があります。このときの検討順序は以下ようになります。
