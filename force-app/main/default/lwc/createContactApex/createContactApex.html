@@ -1,0 +1,15 @@
+<template>
+    <div class="slds-m-bottom_x-small">
+        <!-- 入力があるたびプロパティを更新 -->
+        <lightning-input label="姓" onchange={handleLastNameChange}></lightning-input>
+        <lightning-input label="名" onchange={handleFirstNameChange}></lightning-input>
+        <lightning-input label="電話" onchange={handlePhoneChange}></lightning-input>
+        <lightning-input label="メール" onchange={handleEmailChange}></lightning-input>
+    </div>
+    <div class="slds-modal__footer">
+        <lightning-button class="slds-p-around_small" variant="Neutral" label="キャンセル" onclick={close}>
+        </lightning-button>
+        <lightning-button class="slds-p-around_small" variant="brand" label="作成" onclick={createContact}>
+        </lightning-button>
+    </div>
+</template>

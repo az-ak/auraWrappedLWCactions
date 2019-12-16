@@ -1,0 +1,38 @@
+<template>
+    <!--
+        lightning-record-form で recordId と object-api-name を指定。
+        その中で lightning-output-field で項目名を指定。
+        項目の型に応じた表示形式で表示してくれる。
+    -->
+    <lightning-record-view-form record-id={recordId} object-api-name="Account">
+        <div class="slds-modal__header">
+            <lightning-output-field field-name="Name" variant="label-hidden"></lightning-output-field>
+            <div class="slds-grid">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-output-field field-name="BillingCity" variant="label-hidden"></lightning-output-field>
+                </div>,
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-output-field field-name="BillingState" variant="label-hidden"></lightning-output-field>
+                </div>
+            </div>
+        </div>
+        <div class="slds-grid">
+            <div class="slds-col slds-size_1-of-2">
+                <lightning-output-field field-name="Industry"></lightning-output-field>
+                <lightning-output-field field-name="AnnualRevenue"></lightning-output-field>
+                <lightning-output-field field-name="NumberOfEmployees"></lightning-output-field>
+                <lightning-output-field field-name="Website"></lightning-output-field>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <lightning-output-field field-name="Ownership"></lightning-output-field>
+                <lightning-output-field field-name="Phone"></lightning-output-field>
+                <lightning-output-field field-name="OwnerId"></lightning-output-field>
+            </div>
+        </div>
+    </lightning-record-view-form>
+    <div class="slds-modal__footer">
+        <lightning-button variant="Neutral" label="クローズ" icon-name="utility:close" icon-position="right"
+            onclick={close}>
+        </lightning-button>
+    </div>
+</template>

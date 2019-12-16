@@ -1,0 +1,41 @@
+<template>
+    <!--
+        ui-apiでwireしたaccountレコードをtemplate内でbindして表示。
+        表示形式を指定したいときは lightning-formatted-* を指定している。
+    -->
+    <template if:true={account.data}>
+        <div class="slds-modal__header">
+            <p class="slds-page-header__title">{account.data.fields.Name.value}</p>
+            <h1 class="slds-m-right_small slds-truncate">
+                {account.data.fields.BillingCity.value},{account.data.fields.BillingState.value}
+            </h1>
+        </div>
+        <div class="slds-modal__content slds-p-around_medium">
+            業種: {account.data.fields.Industry.value}
+            <br />
+            年間売上: 
+            <lightning-formatted-number format-style="currency" value={account.data.fields.AnnualRevenue.value}>
+            </lightning-formatted-number><br />
+            従業員数: 
+            <lightning-formatted-number value={account.data.fields.NumberOfEmployees.value}>
+            </lightning-formatted-number><br />
+            Webサイト: 
+            <lightning-formatted-url value={account.data.fields.Website.value}>
+            </lightning-formatted-url><br />
+            会社形態: {account.data.fields.Ownership.value}
+            <br />
+            Phone: 
+            <lightning-formatted-phone value={account.data.fields.Phone.value}>
+            </lightning-formatted-phone><br />
+            取引先所有者: {account.data.fields.Owner.value.fields.Name.value}
+        </div>
+    </template>
+    <template if:false={account.data}>
+        レコードが取得できません。
+    </template>
+    <div class="slds-modal__footer">
+        <lightning-button variant="Neutral" label="クローズ" icon-name="utility:close" icon-position="right"
+            onclick={close}>
+        </lightning-button>
+    </div>
+</template>

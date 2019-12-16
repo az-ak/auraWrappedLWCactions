@@ -1,0 +1,8 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" >
+    <!--
+        recordId をLWCに渡す。
+        LWCのカスタムイベント'close'を受け取ったときのauraのハンドラをoncloseで指定している。
+    -->
+    <c:displayAccountLRF recordId="{!v.recordId}" onclose="{!c.close}"/>
+    <!-- アクションの推奨の高さ: 370px -->
+</aura:component>

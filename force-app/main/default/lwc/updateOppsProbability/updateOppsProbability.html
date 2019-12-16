@@ -1,0 +1,27 @@
+<template>
+    <!--
+        ３つのボタンにそれぞれ別のクリックハンドラを設定している。
+    -->
+    <div class="slds-modal__header">
+        <h2 class="slds-text-heading_medium slds-hyphenate">商談の確度を変更します</h2>
+    </div>
+    <div class="slds-modal__content slds-p-around_medium">
+        <p>
+            <lightning-button variant="success" class="slds-align_absolute-center" onclick={highProbability} label="High">
+            </lightning-button>
+        </p>
+        <br />
+        <p>
+            <lightning-button variant="brand" class="slds-align_absolute-center" onclick={mediumProbability} label="Medium">
+            </lightning-button>
+        </p>
+        <br />
+        <p>
+            <lightning-button variant="destructive" class="slds-align_absolute-center" onclick={lowProbability} label="Low">
+            </lightning-button>
+        </p>
+    </div>
+    <div class="slds-modal__footer">
+        <lightning-button variant="neutral" label="キャンセル" onclick={close}></lightning-button>
+    </div>
+</template>

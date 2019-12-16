@@ -1,0 +1,8 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId,force:hasSObjectName" >
+    <!--
+        recordIdとオブジェクトAPI名をLWCに渡す。
+        そのため force:hasRecordId と force:hasSObjectName を指定している。
+    -->
+    <c:deleteSingleRecord recordId="{!v.recordId}" objectApiName="{!v.sObjectName}" />
+    <!-- アクションの推奨の高さ: 170px -->
+</aura:component>

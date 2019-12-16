@@ -1,0 +1,51 @@
+<template>
+    <!--
+        wireしたApexの結果をtemplate内でbindして表示。
+        Apexの結果がキャッシュされている(cacheable=true)ため、レコード更新直後にこのアクションを実行しても
+        更新後の値が反映されていないことがわかる。
+        表示形式を指定したいときは lightning-formatted-* を指定している。
+    -->
+    <template if:true={account.data}>
+        <div class="slds-modal__header">
+            <p class="slds-page-header__title">
+                <lightning-formatted-text value={account.data.Name}></lightning-formatted-text>
+            </p>
+            <h1 class="slds-m-right_small slds-truncate">
+                <lightning-formatted-text value={account.data.BillingCity}></lightning-formatted-text>
+                ,
+                <lightning-formatted-text value={account.data.BillingState}></lightning-formatted-text>
+            </h1>
+        </div>
+        <div class="slds-modal__content slds-p-around_medium">
+            業種: 
+            <lightning-formatted-text value={account.data.Industry}>
+            </lightning-formatted-text><br />
+            年間売上: 
+            <lightning-formatted-number format-style="currency" value={account.data.AnnualRevenue}>
+            </lightning-formatted-number><br />
+            従業員数: 
+            <lightning-formatted-number value={account.data.NumberOfEmployees}>
+            </lightning-formatted-number><br />
+            Webサイト: 
+            <lightning-formatted-url value={account.data.Website}>
+            </lightning-formatted-url><br />
+            会社形態: 
+            <lightning-formatted-text value={account.data.Ownership}>
+            </lightning-formatted-text><br />
+            Phone: 
+            <lightning-formatted-phone value={account.data.Phone}>
+            </lightning-formatted-phone><br />
+            取引先所有者: 
+            <lightning-formatted-text value={account.data.Owner.Name}>
+            </lightning-formatted-text>
+        </div>
+    </template>
+    <template if:true={account.error}>
+        問題が発生しました。
+    </template>
+    <div class="slds-modal__footer">
+        <lightning-button variant="Neutral" label="クローズ" icon-name="utility:close" icon-position="right"
+            onclick={close}>
+        </lightning-button>
+    </div>
+</template>

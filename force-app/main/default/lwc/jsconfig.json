@@ -1,0 +1,59 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "paths": {
+            "c/cloneSingleRecord": [
+                "cloneSingleRecord/cloneSingleRecord.js"
+            ],
+            "c/closeAccountCases": [
+                "closeAccountCases/closeAccountCases.js"
+            ],
+            "c/createContactApex": [
+                "createContactApex/createContactApex.js"
+            ],
+            "c/createContactLRF": [
+                "createContactLRF/createContactLRF.js"
+            ],
+            "c/createContactUiapi": [
+                "createContactUiapi/createContactUiapi.js"
+            ],
+            "c/deleteSingleRecord": [
+                "deleteSingleRecord/deleteSingleRecord.js"
+            ],
+            "c/displayAccountLRF": [
+                "displayAccountLRF/displayAccountLRF.js"
+            ],
+            "c/displayAccountUiapiBind": [
+                "displayAccountUiapiBind/displayAccountUiapiBind.js"
+            ],
+            "c/displayAccountUiapiGetter": [
+                "displayAccountUiapiGetter/displayAccountUiapiGetter.js"
+            ],
+            "c/displayAccountWiredApexBind": [
+                "displayAccountWiredApexBind/displayAccountWiredApexBind.js"
+            ],
+            "c/displayAccountWiredApexGetter": [
+                "displayAccountWiredApexGetter/displayAccountWiredApexGetter.js"
+            ],
+            "c/openMap": [
+                "openMap/openMap.js"
+            ],
+            "c/updateName": [
+                "updateName/updateName.js"
+            ],
+            "c/updateOppsProbability": [
+                "updateOppsProbability/updateOppsProbability.js"
+            ]
+        }
+    },
+    "include": [
+        "**/*",
+        "../../../../.sfdx/typings/lwc/**/*.d.ts"
+    ],
+    "typeAcquisition": {
+        "include": [
+            "jest"
+        ]
+    }
+}

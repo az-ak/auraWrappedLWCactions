@@ -1,0 +1,38 @@
+<template>
+    <!--
+        wireしたApexの結果をgetterで表示。
+        Apexの結果がキャッシュされている(cacheable=true)ため、レコード更新直後にこのアクションを実行しても
+        更新後の値が反映されていないことがわかる。
+        表示形式を指定したいときは lightning-formatted-* を指定している。
+    -->
+    <div class="slds-modal__header">
+        <p class="slds-page-header__title">{name}</p>
+        <h1 class="slds-m-right_small slds-truncate">
+            {billingCity},{billingState}
+        </h1>
+    </div>
+    <div class="slds-modal__content slds-p-around_medium">
+        業種: {industry}
+        <br />
+        年間売上: 
+        <lightning-formatted-number format-style="currency" value={revenue}>
+        </lightning-formatted-number><br />
+        従業員数: 
+        <lightning-formatted-number value={num_emp}>
+        </lightning-formatted-number><br />
+        Webサイト: 
+        <lightning-formatted-url value={website}>
+        </lightning-formatted-url><br />
+        会社形態: {ownership}
+        <br />
+        Phone: 
+        <lightning-formatted-phone value={phone}>
+        </lightning-formatted-phone><br />
+        取引先所有者: {owner}
+    </div>
+    <div class="slds-modal__footer">
+        <lightning-button variant="Neutral" label="クローズ" icon-name="utility:close" icon-position="right"
+            onclick={close}>
+        </lightning-button>
+    </div>
+</template>

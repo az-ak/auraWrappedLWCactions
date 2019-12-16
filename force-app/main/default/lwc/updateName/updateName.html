@@ -1,0 +1,16 @@
+<template>
+    <!--
+        lightning-record-edit-form で recordId と object-api-name を指定。
+        その中で lightning-input-field で項目名を指定。
+        type="submit" の lightning-button で更新が行われ、成功すれば onsuccess のハンドラが実行される。
+    -->
+    <lightning-record-edit-form record-id={recordId} object-api-name={objectApiName} onsuccess={close}>
+        <lightning-input-field field-name="Name"></lightning-input-field>
+        <div class="slds-modal__footer">
+            <lightning-button class="slds-p-around_small" variant="Neutral" label="クローズ" onclick={close}>
+            </lightning-button>
+            <lightning-button class="slds-p-around_small" variant="brand" type="submit" name="update" label="更新">
+            </lightning-button>
+        </div>
+    </lightning-record-edit-form>
+</template>
