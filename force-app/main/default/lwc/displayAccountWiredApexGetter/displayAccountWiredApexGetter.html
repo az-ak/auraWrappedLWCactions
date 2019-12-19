@@ -1,9 +1,9 @@
 <template>
     <!--
-        wireしたApexの結果をgetterで表示。
-        Apexの結果がキャッシュされている(cacheable=true)ため、レコード更新直後にこのアクションを実行しても
-        更新後の値が反映されていないことがわかる。
-        表示形式を指定したいときは lightning-formatted-* を指定している。
+        getter shows account record which is wired with Apex method.
+        When you execute the action right after record update,
+        you'll see old value since Apex result is cached (cacheable=true).
+        Using lightning-formatted-* to specify output format.
     -->
     <div class="slds-modal__header">
         <p class="slds-page-header__title">{name}</p>
@@ -12,26 +12,26 @@
         </h1>
     </div>
     <div class="slds-modal__content slds-p-around_medium">
-        業種: {industry}
+        Industry: {industry}
         <br />
-        年間売上: 
+        Annual Revenue: 
         <lightning-formatted-number format-style="currency" value={revenue}>
         </lightning-formatted-number><br />
-        従業員数: 
+        Number  of Employees: 
         <lightning-formatted-number value={num_emp}>
         </lightning-formatted-number><br />
-        Webサイト: 
+        Website: 
         <lightning-formatted-url value={website}>
         </lightning-formatted-url><br />
-        会社形態: {ownership}
+        Ownership: {ownership}
         <br />
         Phone: 
         <lightning-formatted-phone value={phone}>
         </lightning-formatted-phone><br />
-        取引先所有者: {owner}
+        Account Owner: {owner}
     </div>
     <div class="slds-modal__footer">
-        <lightning-button variant="Neutral" label="クローズ" icon-name="utility:close" icon-position="right"
+        <lightning-button variant="Neutral" label="Close" icon-name="utility:close" icon-position="right"
             onclick={close}>
         </lightning-button>
     </div>

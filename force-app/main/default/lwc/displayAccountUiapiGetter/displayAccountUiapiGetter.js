@@ -9,7 +9,7 @@ import NUM_EMP_FIELD from '@salesforce/schema/account.NumberOfEmployees';
 import WEBSITE_FIELD from '@salesforce/schema/account.Website';
 import OWNERSHIP_FIELD from '@salesforce/schema/account.Ownership';
 import PHONE_FIELD from '@salesforce/schema/account.Phone';
-import OWNER_NAME_FIELD from '@salesforce/schema/account.Owner.Name'; // 親オブジェクトの項目の参照
+import OWNER_NAME_FIELD from '@salesforce/schema/account.Owner.Name'; // Parent's object field
 
 const FIELDS = [
     NAME_FIELD,
@@ -25,13 +25,13 @@ const FIELDS = [
 ];
 
 export default class DisplayAccountUiapiGetter extends LightningElement {
-    // recordIdはauraから受け取るためapiデコレータが必要
+    // api decorator is required since recordId is passed from aura
     @api recordId;
-    // recordIdと項目のリストを引数としてui-apiのgetRecordでプロパティとwireする
+    // property is wired with getRecord ui-api which has recordId and field list as arguments.
     @wire(getRecord, { recordId: '$recordId', fields: FIELDS })
     account;
 
-    // プロパティ毎にgetterメソッドを定義
+    // getter methods for each property
     get name() {
         return getFieldValue(this.account.data, NAME_FIELD);
     }
@@ -63,7 +63,7 @@ export default class DisplayAccountUiapiGetter extends LightningElement {
         return getFieldValue(this.account.data, OWNER_NAME_FIELD);
     }
 
-    // クローズボタンクリック時に'close'というカスタムイベントを発生させて親のauraに処理してもらう
+    // Cause aura to close the window by firing the custom event 'close'.
     close() {
         const closeEvent = new CustomEvent('close');
         this.dispatchEvent(closeEvent);

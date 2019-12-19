@@ -21,15 +21,15 @@ const FIELDS = [
 ];
 
 export default class OpenMap extends LightningElement {
-    // recordIdはauraから受け取るためapiデコレータが必要
+    // api decorator is required since recordId is passed from aura
     @api recordId;
-    // recordIdと項目のリストを引数としてui-apiのgetRecordでプロパティとwireする
+    // property is wired with getRecord ui-api which has recordId and field list as arguments.
     @wire(getRecord, { recordId: '$recordId', fields: FIELDS })
     record;
 
     url = "https://www.google.com/maps/search/?api=1&query="
 
-    // 請求先押下時の処理。請求先住所でURLを組み立たてる
+    // Construct URL for Billing Address.
     openBillingAddress(){
         this.url = this.url + getFieldValue(this.record.data, BILLINGSTREET_FIELD)
                       + "+" + getFieldValue(this.record.data, BILLINGCITY_FIELD)
@@ -38,7 +38,7 @@ export default class OpenMap extends LightningElement {
         this.openMapPage();
     }
 
-    // 納入先押下時の処理。納入先住所でURLを組み立たてる
+    // Construct URL for Shipping Address.
     openShippingAddress(){
         this.url = this.url + getFieldValue(this.record.data, SHIPPINGSTREET_FIELD)
                       + "+" + getFieldValue(this.record.data, SHIPPINGCITY_FIELD)
@@ -47,14 +47,14 @@ export default class OpenMap extends LightningElement {
         this.openMapPage();
     }
 
-    // 組み立てられたURLを開く
+    // Open the URL
     openMapPage(){
         window.open(this.url);
-        // アクションのモーダルウィンドウをクローズ
+        // Close modal window for the action.
         this.close();
     }
 
-    // カスタムイベント'close'を発生させてauraにウィンドウをクローズしてもらう
+    // Cause aura to close the window by firing the custom event 'close'.
     close() {
         const closeEvent = new CustomEvent('close');
         this.dispatchEvent(closeEvent);

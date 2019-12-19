@@ -6,12 +6,12 @@ import PHONE_FIELD from '@salesforce/schema/Contact.Phone';
 import EMAIL_FIELD from '@salesforce/schema/Contact.Email';
 
 export default class CreateContactLRF extends LightningElement {
-    // recordIdはauraから受け取るためapiデコレータが必要
+    // api decorator is required since recordId is passed from aura
     @api accountId;
-    // lightning-record-form で定義する項目を定義
+    // Fields used by lightning-record-form
     fields = [LASTNAME_FIELD,FIRSTNAME_FIELD,PHONE_FIELD,EMAIL_FIELD];
 
-    // Submit時に入力されていない項目、すなわち、取引先責任者の紐づく取引先のIDを設定
+    // When submit, non-entered value (i.e. AccountId which new contact belongs to) is set.
     handleSubmit(event) {
         event.preventDefault();
         const fields = event.detail.fields;
@@ -19,26 +19,26 @@ export default class CreateContactLRF extends LightningElement {
         this.template.querySelector('lightning-record-form').submit(fields);
     }
 
-    // Submit成功時のハンドラ
+    // handler on successful submit
     handleSuccess(event) {
         this.dispatchEvent(
-            // detailパラメータに作成されたレコードの情報が存在するのでToastで表示
+            // detail parameter has created record info.  Display it in toast.
             new ShowToastEvent({
                 title: 'Record Created',
-                message: '取引先責任者名: {0}',
+                message: 'Contact Name: {0}',
                 messageData: [{
                     url: '/' + event.detail.id,
-                    label: event.detail.fields[LASTNAME_FIELD.fieldApiName].value
-                     +' '+ event.detail.fields[FIRSTNAME_FIELD.fieldApiName].value
+                    label: event.detail.fields[FIRSTNAME_FIELD.fieldApiName].value
+                     +' '+ event.detail.fields[LASTNAME_FIELD.fieldApiName].value
                 }],
                 variant: 'success'
             })
         );
-        // Toast表示後にアクションのモーダルウィンドウをクローズ
+        // After displaying toast, close Action's modal window.
         this.close();
     }
 
-    // カスタムイベント'close'を発生させてauraにウィンドウをクローズしてもらう
+    // Cause aura to close the window by firing the custom event 'close'.
     close() {
         const closeEvent = new CustomEvent('close');
         this.dispatchEvent(closeEvent);

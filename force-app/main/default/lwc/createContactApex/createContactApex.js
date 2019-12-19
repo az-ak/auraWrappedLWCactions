@@ -3,24 +3,24 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import createContactApex from '@salesforce/apex/CreateContactController.newContactForAccount';
 
 export default class CreateContactApex extends LightningElement {
-    // recordIdはauraから受け取るためapiデコレータが必要
+    // api decorator is required since recordId is passed from aura
     @api accountId;
 
-    // 初期値の設定
+    // Set initial value
     firstName = '';
     lastName = '';
     phone = '';
     email = '';
 
-    // 入力があるたびプロパティを更新
+    // When the value changes, handleChange function updates property.
     handleFirstNameChange(event) { this.firstName = event.target.value; }
     handleLastNameChange(event) { this.lastName = event.target.value; }
     handlePhoneChange(event) { this.phone = event.target.value; }
     handleEmailChange(event) { this.email = event.target.value; }
 
-    // 作成ボタン押下時のハンドラ
+    // Create button is clicked
     createContact() {
-        // Apexメソッドをimperativeにコール
+        // Call Apex method imperatively
         createContactApex({
             accountId: this.accountId,
             firstName: this.firstName,
@@ -28,27 +28,27 @@ export default class CreateContactApex extends LightningElement {
             phone: this.phone,
             email: this.email
         })
-            // Apex成功時の処理
+            // Apex Success Action
             .then(contact => {
-                // Toastを表示
-                // Apexの戻り値がContactのレコード型なので、そこから姓名とIdを得て表示
+                // Display a toast notification.
+                // Apex returns Contact record which has Id, First Name, Last Name.
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Record Created',
-                        message: '取引先責任者名: {0}',
+                        message: 'Contact Name: {0}',
                         messageData: [{
                             url: '/' + contact.Id,
-                            label: contact.LastName + ' ' + contact.FirstName
+                            label: contact.FirstName + ' ' + contact.LastName
                         }],
                         variant: 'success'
                     })
                 );
-                // Toast表示後にアクションのモーダルウィンドウをクローズ
+                // After displaying toast, close Action's modal window.
                 this.close();
             })
-            // Apex失敗時の処理
+            // Apex Failure Handling
             .catch(error => {
-                // Toastを表示
+                // Display a toast notification.
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Error creating record',
@@ -56,12 +56,12 @@ export default class CreateContactApex extends LightningElement {
                         variant: 'error'
                     })
                 );
-                // Toast表示後にアクションのモーダルウィンドウをクローズ
+                // After displaying toast, close Action's modal window.
                 this.close();
             })
     }
 
-    // カスタムイベント'close'を発生させてauraにウィンドウをクローズしてもらう
+    // Cause aura to close the window by firing the custom event 'close'.
     close() {
         const closeEvent = new CustomEvent('close');
         this.dispatchEvent(closeEvent);

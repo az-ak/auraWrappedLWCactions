@@ -1,96 +1,95 @@
-# auraでwrapしたLightning Web Componentをアクションから呼び出すサンプル
+# Samples for invoking aura wrapped Lightning Web Component from Action
 
-## はじめに
-ClassicからLightning Experienceに切り替えるとき、JavaScriptボタンの代替機能を提供しなければならない場合があります。このときの検討順序は以下ようになります。
-1. 標準機能での代替（クイックアクション等）
-2. [Lightning Configuration Converter](https://lightning-configuration.salesforce.com/)での自動コンバート  
-使用方法は[こちら](https://success.salesforce.com/0D53A00003tjmxL)
-3. Lightning Actionの自作
+## Introduction
+When transitioning from Classic to Lightning Experience, you may have to provide alternatives of JavaScript buttons/links.  The alternatives should be considered in following order:
+1. Standard features (such as Quick Action)
+2. Auto conversion by [Lightning Configuration Converter](https://lightning-configuration.salesforce.com/)  
+3. Self-made Lightning Action
 
-Spring'20の時点で、アクションからLightning Webコンポーネント(LWC)を直接呼び出すことはできません。（auraコンポーネントからアクションを呼び出すサンプルは[こちら](https://github.com/az-ak/LEXComponentsBundleJP)にあります。）
-しかし、今後の開発でLWCを主流にするのであれば、auraを勉強するのに時間をかけたくありませんし、auraでの作り込みもなるべく避けたいところです。  
-そこで、このリポジトリでは、ロジックの大部分をLWCで記述し最小限のauraコンポーネントでwrapするという方針でサンプルを作成しました。ユースケースについてはauraのサンプルとほぼ同様です。
+As of Winter'20, Lightning Web Component(LWC) cannot be invoked from Action directly. (Action invoked aura Component samples are [here](https://github.com/developerforce/LEXComponentsBundle).)
+However, when regarding LWC as future mainstream, you may not want to take time to study aura and may want to avoid to elaborate aura component.  
+This repository provides samples of aura wrapped LWC, where the majority of functions are implemented by LWC and aura's roles are suppressed as possble.  Use cases are similar to above aura Action Samples.
 
-## auraコンポーネントで実装していること
-auraにて実装しているのは以下の役割**のみ**です。ほかのすべての作業はLWCで行っています。
-* LWCを呼び出す
-* アクションでの表示を許可する(force:lightningQuickAction[WithoutHeader])
-* レコードページのrecordIdを取得しLWCに渡す(force:hasRecordId)
-* レコードページのオブジェクトAPI名をLWCに渡す(force:hasSObjectName)
-* LWCからイベントを受け取りモーダルウィンドウをクローズする("e.force:closeQuickAction")。また必要に応じてページをリフレッシュする("e.force:refreshView")。
+## What aura Components do
+aura Components do followings **ONLY**.  Other all functions are implemented in LWC.
+* invoke LWC
+* allow to use in Action (force:lightningQuickAction[WithoutHeader])
+* get recordId of the record page (force:hasRecordId) and pass it to LWC.
+* get object API name of the record page (force:hasSObjectName) and pass it to LWC.
+* catch the event from LWC then close modal window ("e.force:closeQuickAction"), and refreshing the page ("e.force:refreshView") if need be.
 
-## リポジトリの内容
-### 命名規則
-* LWCとアクションは同じ名前
-* auraはLWCの名前に続いて"Wrapper"とつけている
-* 同一目的のLWCが複数存在する場合、データアクセス方法とプロパティの表示方法がコンポーネント名に含まれる
-	* データアクセス
+## Contents
+### Naming Rules
+* LWC and Action have same name.
+* aura has postfix "Wrapper".
+* When use case is same, component name includes the way to access data and show property value.
+	* Data access
 		* lightning-record-form
 		* ui-api
 		* Wired Apex
 		* Imperative Apex
-	* プロパティの表示
+	* Show property value
 		* lightning-record-form
 		* binding
 		* getter
 
-### コンポーネントのリスト
-1. レコード表示
-	* オブジェクト: 取引先
-	* 説明: 異なった手法でレコードを表示
+### Component list
+1. Display a record
+	* Object: Account
+	* Explanation: Display a record with various manners
 	1. lightning-record-form
 		* LWC: displayAccountLRF
 	2. ui-api
-		1. プロパティのbinding
+		1. binding property
 			* LWC: displayAccountUiapiBind
-		2. getterによるプロパティ参照
+		2. getter
 			* LWC: displayAccountUiapiGetter
 	3. Wired Apex
-		* Apexクラス: DisplayAccount.cls
-		1. プロパティのbinding
+		* Apex class: DisplayAccount.cls
+		1. binding property
 			* LWC: displayAccountWiredApexBind
-		2. getterによるプロパティ参照
+		2. getter
 			* LWC: displayAccountWiredApexGetter
-2. レコード削除
-    * オブジェクト: 汎用
-    * 説明: ui-apiを使用してレコードを削除
+2. Delete a record
+    * Object: General-purpose
+    * Explanation: Delete a record by ui-api
 	* LWC: deleteSingleRecord
-	* アクション: サンプルとして商談に作成
-3. レコード更新
+	* Action: (as sample) Opportunity
+3. Update a record
 	1. lightning-record-form
-		* オブジェクト: 汎用
-		* 説明: Name項目変更
+		* Object: General-purpose
+		* Explanation: Change Name field
 		* LWC: updateName
-		* アクション: サンプルとして商談に作成
+		* Action: (as sample) Opportunity
 	2. ui-api
-		* オブジェクト: 商談
-		* 説明: High/Medium/Low を選択して確度を変更
+		* Object: Opportunity
+		* Explanation: Selecting High/Medium/Low then update probability
 		* LWC: updateOppsProbability
-4. 子レコード作成
-	* オブジェクト: 取引先
-	* 説明: 紐づく取引先責任者を作成
+4. Create a child record
+	* Object: Account
+	* Explanation: Create a Contact record under the Account
 	1. lightning-record-form
 		* LWC: createContactLRF
 	2. ui-api
 		* LWC: createContactUiapi
 	3. imperative Apex
-		* Apexクラス: CreateContactController.cls
+		* Apex class: CreateContactController.cls
 		* LWC: createContactApex
-5. 子レコード一括更新
-	* オブジェクト: 取引先
-	* 説明: Imperative Apexで紐づくケースを一括クローズ
-	* Apexクラス: CloseAccountCases.cls
+5. Mass update of child records
+	* Object: Account
+	* Explanation: Close all cases under the Account by imperative Apex
+	* Apex class: CloseAccountCases.cls
 	* LWC: closeAccountCases
-6. レコードのコピー（クローン）
-	* オブジェクト: 汎用
-	* 説明: Imperative Apexでレコードのコピー
-	* Apexクラス: CloneSingleRecord.cls
+6. Clone a record
+	* Object: General-purpose
+	* Explanation: Clone a record by imperative Apex
+	* Apex class: CloneSingleRecord.cls
 	* LWC: cloneSingleRecord
-	* アクション: サンプルとして商談に作成
-7. 別ウィンドウ表示
-	* オブジェクト: 取引先
-	* 説明: 別ウィンドウで地図を表示
+	* Action: (as sample) Opportunity
+7. Open another window
+	* Object: Account
+	* Explanation: Open a map in another window
 	* LWC: openMap
 
-### 免責事項
-本コードは Lightning Platform の技術検証をかねて個人として作成したものであり、動作の正確性、セキュリティ上の安全性などについて保証するものではありません。Lightning Platform における実装のサンプルコードとして個人として公開するものです。
+### Disclaimer
+This code was written for the purpose of technical verification of the Lightning Platform as an individual and does not guarantee the accuracy of operation or security. It is published as a sample code for the Lightning Platform implementation.

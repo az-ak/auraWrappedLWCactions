@@ -1,9 +1,9 @@
 public with sharing class CloseAccountCases {
     /**
-        LWCから呼び出すメソッドには @AuraEnabled のアノテーションが必要。
-        また、メソッドはpublic/globalなstaticメソッドでなければならない。
-        imperativeに呼び出すため (cacheable=true) は不要。
-        なお (cacheable=true) のメソッドをimperativeに呼び出すことは可能だが、その中でDMLは実行できない。
+        Method called from LWC has to have @AuraEnabled annotation.
+        Also the method has to be global/public static method.
+        This method is called imperatively, so (cacheable=true) is not required.
+        Incidentally (cacheable=true) method can be called imperatively but DML cannot be performed in it.
      */
     @AuraEnabled
     public static void massClose(String id){

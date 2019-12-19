@@ -3,18 +3,18 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import cloneRecordApex from '@salesforce/apex/CloneSingleRecord.cloneAnySobject';
 
 export default class CloneSingleRecord extends LightningElement {
-    // recordIdはauraから受け取るためapiデコレータが必要
+    // api decorator is required since recordId is passed from aura
     @api recordId;
 
-    // connectedCallback() はこのコンポーネントの初期化が完了したタイミングで実行される。
+    // connectedCallback() is executed when the component is inserted into the DOM.
     connectedCallback() {
-        // Apexメソッドをimperativeに実行
+        // Perform Apex method imperatively.
         cloneRecordApex({ recordId: this.recordId })
-            // Apex成功時の処理
+            // Apex Success Action
             .then(result => {
                 this.dispatchEvent(
-                    // Toastを表示
-                    // 元のrecordIdとApexの戻り値として得られたコピーされたレコードのIdを表示
+                    // Display a toast notification.
+                    // Original recordId and cloned recordId which is returned from Apex is in message.
                     new ShowToastEvent({
                         title: 'Record cloned',
                         message: 'Origin {0} -> Cloned {1}',
@@ -31,10 +31,10 @@ export default class CloneSingleRecord extends LightningElement {
                         variant: 'success'
                     })
                 );
-                // Toast表示後にアクションのモーダルウィンドウをクローズ
+                // After displaying toast, close Action's modal window.
                 this.close();
             })
-            // Apex失敗時の処理
+            // Apex Failure Handling
             .catch(error => {
                 this.dispatchEvent(
                     new ShowToastEvent({
@@ -47,7 +47,7 @@ export default class CloneSingleRecord extends LightningElement {
             })
     }
 
-    // カスタムイベント'close'を発生させてauraにウィンドウをクローズしてもらう
+    // Cause aura to close the window by firing the custom event 'close'.
     close() {
         const closeEvent = new CustomEvent('close');
         this.dispatchEvent(closeEvent);

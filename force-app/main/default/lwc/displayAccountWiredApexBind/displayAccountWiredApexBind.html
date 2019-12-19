@@ -1,9 +1,9 @@
 <template>
     <!--
-        wireしたApexの結果をtemplate内でbindして表示。
-        Apexの結果がキャッシュされている(cacheable=true)ため、レコード更新直後にこのアクションを実行しても
-        更新後の値が反映されていないことがわかる。
-        表示形式を指定したいときは lightning-formatted-* を指定している。
+        wired Apex method result is bound in template.
+        When you execute the action right after record update,
+        you'll see old value since Apex result is cached (cacheable=true).
+        Using lightning-formatted-* to specify output format.
     -->
     <template if:true={account.data}>
         <div class="slds-modal__header">
@@ -17,34 +17,34 @@
             </h1>
         </div>
         <div class="slds-modal__content slds-p-around_medium">
-            業種: 
+            Industry: 
             <lightning-formatted-text value={account.data.Industry}>
             </lightning-formatted-text><br />
-            年間売上: 
+            Annual Revenue: 
             <lightning-formatted-number format-style="currency" value={account.data.AnnualRevenue}>
             </lightning-formatted-number><br />
-            従業員数: 
+            Number  of Employees: 
             <lightning-formatted-number value={account.data.NumberOfEmployees}>
             </lightning-formatted-number><br />
-            Webサイト: 
+            Website: 
             <lightning-formatted-url value={account.data.Website}>
             </lightning-formatted-url><br />
-            会社形態: 
+            Ownership: 
             <lightning-formatted-text value={account.data.Ownership}>
             </lightning-formatted-text><br />
             Phone: 
             <lightning-formatted-phone value={account.data.Phone}>
             </lightning-formatted-phone><br />
-            取引先所有者: 
+            Account Owner: 
             <lightning-formatted-text value={account.data.Owner.Name}>
             </lightning-formatted-text>
         </div>
     </template>
     <template if:true={account.error}>
-        問題が発生しました。
+        Error occurred.
     </template>
     <div class="slds-modal__footer">
-        <lightning-button variant="Neutral" label="クローズ" icon-name="utility:close" icon-position="right"
+        <lightning-button variant="Neutral" label="Close" icon-name="utility:close" icon-position="right"
             onclick={close}>
         </lightning-button>
     </div>

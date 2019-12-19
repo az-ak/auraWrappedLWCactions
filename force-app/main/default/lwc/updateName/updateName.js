@@ -1,13 +1,12 @@
 import { LightningElement, api } from 'lwc';
 
 export default class UpdateName extends LightningElement {
-    // recordIdとオブジェクトAPI名はauraから受け取るためapiデコレータが必要
+    // api decorator is required since recordId and objectApiName are passed from aura
     @api recordId;
     @api objectApiName;
 
-    // 更新成功時およびクローズボタンクリック時に'close'というカスタムイベントを
-    // 発生させて親のauraに処理してもらう。
-    // その他の処理は lightning-record-edit-form におまかせ。
+    // Cause aura to close the window by firing the custom event 'close'.
+    // Leave the rest to lightning-record-edit-form.
     close() {
         const closeEvent = new CustomEvent('close');
         this.dispatchEvent(closeEvent);

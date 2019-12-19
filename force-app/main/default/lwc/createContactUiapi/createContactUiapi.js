@@ -9,24 +9,24 @@ import EMAIL_FIELD from '@salesforce/schema/Contact.Email';
 import ACCOUNTID_FIELD from '@salesforce/schema/Contact.AccountId';
 
 export default class CreateContactUiapi extends LightningElement {
-    // recordIdはauraから受け取るためapiデコレータが必要
+    // api decorator is required since recordId is passed from aura
     @api accountId;
 
-    // 初期値の設定
+    // Set initial value
     firstName = '';
     lastName = '';
     phone = '';
     email = '';
 
-    // 入力があるたびプロパティを更新
+    // When the value changes, handleChange function updates property.
     handleFirstNameChange(event) { this.firstName = event.target.value; }
     handleLastNameChange(event) { this.lastName = event.target.value; }
     handlePhoneChange(event) { this.phone = event.target.value; }
     handleEmailChange(event) { this.email = event.target.value; }
 
-    // 作成ボタン押下時のハンドラ
+    // Create button is clicked
     createContact() {
-        // ui-apiの引数として渡すrecordInputを作成
+        // Create recordInput passed as an argument to ui-api
         const fields = {};
         fields[FIRSTNAME_FIELD.fieldApiName] = this.firstName;
         fields[LASTNAME_FIELD.fieldApiName] = this.lastName;
@@ -35,28 +35,28 @@ export default class CreateContactUiapi extends LightningElement {
         fields[ACCOUNTID_FIELD.fieldApiName] = this.accountId;
         const recordInput = { apiName: CONTACT_OBJECT.objectApiName, fields };
 
-        // ui-apiのcreateRecordを実行
+        // perform createRecord of ui-api
         createRecord(recordInput)
-            // ui-api成功時の処理
+            // ui-api success action
             .then(contact => {
-                // Toastを表示
-                // 作成したレコードがthenブロックで戻されるので、そこから姓名とIdを得て表示
+                // Display a toast notification.
+                // Created record is returned in then block. We can get Id and Name fields.
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Record Created',
-                        message: '取引先責任者名: {0}',
+                        message: 'Contact Name: {0}',
                         messageData: [{
                             url: '/' + contact.id,
-                            label: contact.fields[LASTNAME_FIELD.fieldApiName].value + ' '
-                                 + contact.fields[FIRSTNAME_FIELD.fieldApiName].value
+                            label: contact.fields[FIRSTNAME_FIELD.fieldApiName].value + ' '
+                                 + contact.fields[LASTNAME_FIELD.fieldApiName].value
                         }],
                         variant: 'success'
                     })
                 );
-                // Toast表示後にアクションのモーダルウィンドウをクローズ
+                // After displaying toast, close Action's modal window.
                 this.close();
             })
-            // ui-api失敗時の処理
+            // ui-api failure handling
             .catch(error => {
                 this.dispatchEvent(
                     new ShowToastEvent({
@@ -65,12 +65,12 @@ export default class CreateContactUiapi extends LightningElement {
                         variant: 'error'
                     })
                 );
-                // Toast表示後にアクションのモーダルウィンドウをクローズ
+                // After displaying toast, close Action's modal window.
                 this.close();
             })
     }
 
-    // カスタムイベント'close'を発生させてauraにウィンドウをクローズしてもらう
+    // Cause aura to close the window by firing the custom event 'close'.
     close() {
         const closeEvent = new CustomEvent('close');
         this.dispatchEvent(closeEvent);

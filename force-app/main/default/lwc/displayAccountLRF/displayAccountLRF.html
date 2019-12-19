@@ -1,8 +1,8 @@
 <template>
     <!--
-        lightning-record-form で recordId と object-api-name を指定。
-        その中で lightning-output-field で項目名を指定。
-        項目の型に応じた表示形式で表示してくれる。
+        Specifying recordId and object-api-name in lightning-record-form.
+        Fields are specified in lightning-output-field.
+        Output format is as to the field's data type.
     -->
     <lightning-record-view-form record-id={recordId} object-api-name="Account">
         <div class="slds-modal__header">
@@ -31,7 +31,7 @@
         </div>
     </lightning-record-view-form>
     <div class="slds-modal__footer">
-        <lightning-button variant="Neutral" label="クローズ" icon-name="utility:close" icon-position="right"
+        <lightning-button variant="Neutral" label="Close" icon-name="utility:close" icon-position="right"
             onclick={close}>
         </lightning-button>
     </div>

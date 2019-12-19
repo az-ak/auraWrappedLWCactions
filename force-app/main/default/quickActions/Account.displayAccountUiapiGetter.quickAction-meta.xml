@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
     <height>325</height>
-    <label>表示-UiapiGetter</label>
+    <label>Display-UiapiGetter</label>
     <lightningComponent>displayAccountUiapiGetterWrapper</lightningComponent>
     <optionsCreateFeedItem>false</optionsCreateFeedItem>
     <type>LightningComponent</type>

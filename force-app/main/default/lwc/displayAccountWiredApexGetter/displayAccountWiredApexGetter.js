@@ -10,15 +10,15 @@ import NUM_EMP_FIELD from '@salesforce/schema/account.NumberOfEmployees';
 import WEBSITE_FIELD from '@salesforce/schema/account.Website';
 import OWNERSHIP_FIELD from '@salesforce/schema/account.Ownership';
 import PHONE_FIELD from '@salesforce/schema/account.Phone';
-import OWNER_NAME_FIELD from '@salesforce/schema/account.Owner.Name'; // 親オブジェクトの項目の参照
+import OWNER_NAME_FIELD from '@salesforce/schema/account.Owner.Name'; // Parent's object field
 
 export default class DisplayAccountWiredApexGetter extends LightningElement {
-    // recordIdはauraから受け取るためapiデコレータが必要
+    // api decorator is required since recordId is passed from aura
     @api recordId;
-    // プロパティに(cacheable=true)のApexメソッドをwireする
+    // wire cacheable Apex method to property
     @wire(singleAccount, { accountId: '$recordId' }) account;
 
-    // プロパティ毎にgetterメソッドを定義
+    // getter methods for each property
     get name() {
         return this.account.data ? getSObjectValue(this.account.data, NAME_FIELD) : '';
     }
@@ -50,7 +50,7 @@ export default class DisplayAccountWiredApexGetter extends LightningElement {
         return this.account.data ? getSObjectValue(this.account.data, OWNER_NAME_FIELD) : '';
     }
 
-    // クローズボタンクリック時に'close'というカスタムイベントを発生させて親のauraに処理してもらう
+    // Cause aura to close the window by firing the custom event 'close'.
     close() {
         const closeEvent = new CustomEvent('close');
         this.dispatchEvent(closeEvent);

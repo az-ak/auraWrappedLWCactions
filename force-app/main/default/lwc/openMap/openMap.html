@@ -1,22 +1,22 @@
 <template>
     <!--
-        ２つのボタンにそれぞれ別のクリックハンドラを設定している。
+        Each button has own click handler.
     -->
     <div class="slds-modal__header slds-text-heading_medium">
-        どちらの地図を表示しますか？
+        Which map do you want to see?
     </div>
     <lightning-layout class="slds-modal__content" horizontal-align="center">
         <lightning-layout-item flexibility="auto" padding="around-large">
-            <lightning-button variant="success" label="請求先" onclick={openBillingAddress}>
+            <lightning-button variant="success" label="Billing Address" onclick={openBillingAddress}>
             </lightning-button>
         </lightning-layout-item>
         <lightning-layout-item flexibility="auto" padding="around-large">
-            <lightning-button variant="brand" label="納入先" onclick={openShippingAddress}>
+            <lightning-button variant="brand" label="Shipping Address" onclick={openShippingAddress}>
             </lightning-button>
         </lightning-layout-item>
     </lightning-layout>
     <div class="slds-modal__footer">
-        <lightning-button variant="Neutral" label="クローズ" icon-name="utility:close" icon-position="right"
+        <lightning-button variant="Neutral" label="Close" icon-name="utility:close" icon-position="right"
             onclick={close}>
         </lightning-button>
     </div>

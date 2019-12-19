@@ -1,8 +1,8 @@
 public with sharing class DisplayAccount {
     /**
-        LWCから呼び出すメソッドには @AuraEnabled のアノテーションが必要。
-        また、メソッドはpublic/globalなstaticメソッドでなければならない。
-        またメソッドをWireするため (cacheable=true) が必要。
+        Method called from LWC has to have @AuraEnabled annotation.
+        Also the method has to be global/public static method.
+        This method is wired in LWC, so (cacheable=true) is required.
      */
     @AuraEnabled(cacheable=true)
     public static Account selectSingleAccount(string accountId) {

@@ -1,8 +1,8 @@
 <template>
     <!--
-        新規作成のため、record-id は指定しない。
-        Submit時に入力されていない項目、すなわち、取引先責任者の紐づく取引先のIDを設定するため
-        handleSubmitハンドラを設定している。
+        The form does not have record-id because it creates new record.
+        handleSubmit handler is set in order to set non-entered value,
+        i.e. AccountId which new contact belongs to.
     -->
     <lightning-record-form
         object-api-name="Contact"

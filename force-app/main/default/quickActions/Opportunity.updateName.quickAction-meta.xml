@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
     <height>150</height>
-    <label>名前変更-LRF</label>
+    <label>Change Name-LRF</label>
     <lightningComponent>updateNameWrapper</lightningComponent>
     <optionsCreateFeedItem>false</optionsCreateFeedItem>
     <type>LightningComponent</type>

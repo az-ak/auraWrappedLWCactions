@@ -2,12 +2,12 @@ import { LightningElement, api, wire } from 'lwc';
 import singleAccount from '@salesforce/apex/DisplayAccount.selectSingleAccount';
 
 export default class DisplayAccountWiredApexBind extends LightningElement {
-    // recordIdはauraから受け取るためapiデコレータが必要
+    // api decorator is required since recordId is passed from aura
     @api recordId;
-    // プロパティに(cacheable=true)のApexメソッドをwireする
+    // wire cacheable Apex method to property
     @wire(singleAccount, { accountId: '$recordId' }) account;
 
-    // クローズボタンクリック時に'close'というカスタムイベントを発生させて親のauraに処理してもらう
+    // Cause aura to close the window by firing the custom event 'close'.
     close() {
         const closeEvent = new CustomEvent('close');
         this.dispatchEvent(closeEvent);

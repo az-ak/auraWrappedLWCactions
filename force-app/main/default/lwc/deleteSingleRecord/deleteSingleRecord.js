@@ -4,26 +4,26 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
 
 export default class DeleteSingleRecord extends NavigationMixin(LightningElement) {
-    // recordIdとオブジェクトAPI名はauraから受け取るためapiデコレータが必要
+    // api decorator is required since recordId and objectApiName are passed from aura
     @api recordId;
     @api objectApiName;
     @track error;
 
-    // 削除ボタン押下時の処理
+    // Delete button is clicked
     deleteRec() {
-        // ui-apiのdeleteRecordを実行
+        // perform deleteRecord of ui-api
         deleteRecord(this.recordId)
-            // 削除成功時の処理
+            // ui-api success action
             .then(() => {
                 this.dispatchEvent(
-                    // Toastを表示
+                    // Display a toast notification.
                     new ShowToastEvent({
                         title: 'Success',
-                        message: 'レコードを削除しました',
+                        message: 'Record is deleted',
                         variant: 'success'
                     })
                 );
-                // 削除したレコードのオブジェクトホームに遷移
+                // go to object home of deleted record
                 this[NavigationMixin.Navigate]({
                     type: 'standard__objectPage',
                     attributes: {
@@ -32,10 +32,10 @@ export default class DeleteSingleRecord extends NavigationMixin(LightningElement
                     },
                 });
             })
-            // 削除失敗時に処理
+            // ui-api failure handling
             .catch(error => {
                 this.dispatchEvent(
-                    // Toastを表示
+                    // Display a toast notification.
                     new ShowToastEvent({
                         title: 'Error deleting record',
                         message: error.body.message,
@@ -45,9 +45,9 @@ export default class DeleteSingleRecord extends NavigationMixin(LightningElement
             });
     }
 
-    // キャンセルボタン押下時の処理
+    // Cancel button is clicked
     cancel() {
-        // キャンセル時は元のレコードを表示
+        // show original record
         this[NavigationMixin.Navigate]({
             type: 'standard__recordPage',
             attributes: {
